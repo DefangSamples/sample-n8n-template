@@ -13,6 +13,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - priv
 
   n8n:
     image: docker.n8n.io/n8nio/n8n
@@ -44,6 +46,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - default
+      - priv
     healthcheck:
       test:
         [
@@ -54,3 +59,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 120s
+
+networks:
+  priv:
+  default:
